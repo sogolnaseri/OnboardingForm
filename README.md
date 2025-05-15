@@ -1,46 +1,82 @@
-# Getting Started with Create React App
+# Onboarding Form App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a modern onboarding form built with React, React Hook Form, Yup, and Vite. The app allows users to enter their first name, last name, phone number, and corporation number, with real-time validation and a clean, accessible UI.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Responsive and accessible onboarding form
+- Real-time validation for all fields (including Canadian phone number and 9-digit corporation number)
+- Custom validation logic and error messages
+- Success message on valid submission
+- Error message and simulated 400 response for invalid corporation numbers
+- Fully tested with Jest and React Testing Library
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Install dependencies
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```sh
+npm install
+```
 
-### `npm test`
+### Run the app in development mode
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+npm run dev
+```
 
-### `npm run build`
+Open [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal) to view it in the browser.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Run tests
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
+npm test
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
 
-### `npm run eject`
+Fill out the onboarding form with your information. All fields are required and validated in real time.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Example: Test the form with this data to see a 200 response
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+{
+  "firstName": "Hello",
+  "lastName": "World",
+  "corporationNumber": "826417395",
+  "phone": "+13062776103"
+}
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Enter the above values in the form fields and submit.
+- You will see a success message indicating the form was submitted successfully (simulating a 200 response).
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Example: Test the form with a bad corporation number to see a 400 response
 
-## Learn More
+```
+{
+  "firstName": "Hello",
+  "lastName": "World",
+  "corporationNumber": "123456789",
+  "phone": "+13062776103"
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Enter the above values in the form fields and submit.
+- You will see an error message indicating the corporation number is invalid.
+- The simulated response will be:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+{
+  "valid": false,
+  "message": "Invalid corporation number"
+}
+```
+
+## Technologies Used
+
+- React 18
+- React Hook Form
+- Yup
+- Vite
+- Jest & React Testing Library
