@@ -1,5 +1,5 @@
 // src/components/FormField.tsx
-import React from "react";
+import React, { isValidElement, cloneElement } from "react";
 
 interface FormFieldProps {
   label: string;
@@ -7,6 +7,7 @@ interface FormFieldProps {
   required?: boolean;
   isValidating?: boolean;
   children: React.ReactNode;
+  id?: string;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -15,14 +16,19 @@ const FormField: React.FC<FormFieldProps> = ({
   required,
   isValidating,
   children,
+  id,
 }) => {
+  const labelId = id || label.toLowerCase().replace(/\s+/g, '-');
+  
   return (
     <div className="form-field">
-      <label className="form-label">
+      <label htmlFor={labelId} className="form-label">
         {label}
         {required && <span className="required">*</span>}
       </label>
-      {children}
+      {isValidElement(children)
+        ? cloneElement(children as React.ReactElement, { id: labelId })
+        : (() => { throw new Error('FormField expects a single React element as its child.'); })()}
       {isValidating && <div className="validating">Validating...</div>}
       {error && <div className="error-message">{error}</div>}
     </div>

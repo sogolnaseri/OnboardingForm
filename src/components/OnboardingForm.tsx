@@ -87,7 +87,7 @@ const OnboardingForm: React.FC = () => {
 
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit(onSubmit)} className="onboarding-form">
+      <form onSubmit={handleSubmit(onSubmit)} className="onboarding-form" data-testid="onboarding-form">
         <h2>Onboarding Form</h2>
 
         {isSuccess && (

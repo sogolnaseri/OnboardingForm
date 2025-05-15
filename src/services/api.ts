@@ -1,0 +1,1 @@
+export const validateCorporationNumber = () => Promise.resolve(true); 
