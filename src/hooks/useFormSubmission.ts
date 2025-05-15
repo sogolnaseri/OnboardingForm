@@ -5,10 +5,12 @@ import { FormData } from "../components/OnboardingForm";
 export const useFormSubmission = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const submitForm = async (data: FormData) => {
     setIsSubmitting(true);
     setSubmitError(null);
+    setIsSuccess(false);
 
     try {
       const response = await fetch(
@@ -27,8 +29,11 @@ export const useFormSubmission = () => {
         throw new Error(errorData.message || "Failed to submit form");
       }
 
-      // Success - you might want to add success handling here
-      console.log("Form submitted successfully");
+      setIsSuccess(true);
+      // Reset form after successful submission
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 3000);
     } catch (error) {
       console.error("Form submission error:", error);
       setSubmitError(
@@ -39,5 +44,5 @@ export const useFormSubmission = () => {
     }
   };
 
-  return { submitForm, isSubmitting, submitError };
+  return { submitForm, isSubmitting, submitError, isSuccess };
 };

@@ -1,5 +1,5 @@
 // src/components/OnboardingForm.tsx
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -54,9 +54,10 @@ const OnboardingForm: React.FC = () => {
     formState: { errors, touchedFields },
     trigger,
     getValues,
+    reset,
   } = useForm<FormData>({
     resolver: yupResolver(schema),
-    mode: "onBlur",
+    mode: "onChange",
   });
 
   const { isValidating, validationError } = useCorporationValidation(
@@ -64,7 +65,14 @@ const OnboardingForm: React.FC = () => {
     !!touchedFields.corporationNumber
   );
 
-  const { submitForm, isSubmitting, submitError } = useFormSubmission();
+  const { submitForm, isSubmitting, submitError, isSuccess } =
+    useFormSubmission();
+
+  useEffect(() => {
+    if (isSuccess) {
+      reset();
+    }
+  }, [isSuccess, reset]);
 
   const onSubmit = async (data: FormData) => {
     if (isValidating || validationError) {
@@ -82,6 +90,12 @@ const OnboardingForm: React.FC = () => {
       <div className="progress">Step 1 of 5</div>
       <form onSubmit={handleSubmit(onSubmit)} className="onboarding-form">
         <h2>Onboarding Form</h2>
+
+        {isSuccess && (
+          <div className="success-message">
+            Form submitted successfully! Thank you for your submission.
+          </div>
+        )}
 
         <div className="form-row">
           <FormField
@@ -115,7 +129,6 @@ const OnboardingForm: React.FC = () => {
           <input
             {...register("phone")}
             type="tel"
-            placeholder="+1"
             className={`form-input ${errors.phone ? "error" : ""}`}
             onBlur={() => trigger("phone")}
           />

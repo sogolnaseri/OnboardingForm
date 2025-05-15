@@ -25,7 +25,7 @@ export const useCorporationValidation = (
         const data = await response.json();
 
         if (!data.valid) {
-          setValidationError(data.message || "Invalid corporation number");
+          setValidationError(data.message || "Invalid Corporation Number");
         }
       } catch (error) {
         console.error("Corporation validation error:", error);
