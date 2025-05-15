@@ -1,12 +1,14 @@
 // src/App.tsx
-import React from "react";
 import OnboardingForm from "./components/OnboardingForm";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <OnboardingForm />
+      <div className="gray-area">
+        <div className="progress-indicator">Step 1 of 5</div>
+        <OnboardingForm />
+      </div>
     </div>
   );
 }
