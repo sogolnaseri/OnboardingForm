@@ -2,6 +2,12 @@
 
 This is a modern onboarding form built with React, React Hook Form, Yup, and Vite. The app allows users to enter their first name, last name, phone number, and corporation number, with real-time validation and a clean, accessible UI.
 
+# Demo
+
+main page
+![image](https://github.com/user-attachments/assets/039993c6-427b-4793-ba05-55a54ded1828)
+
+
 ## Features
 
 - Responsive and accessible onboarding form
